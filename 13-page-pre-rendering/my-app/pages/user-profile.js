@@ -1,9 +1,23 @@
-import React from 'react'
+import React from "react";
 
-function UserProfilePage() {
+function UserProfilePage(props) {
+  const { user } = props;
   return (
-    <div>{UserProfilePage}</div>
-  )
+    <div>
+      <p>Name: {user.name}</p>
+      <p>Age: {user.age}</p>
+    </div>
+  );
 }
-export default UserProfilePage
+export default UserProfilePage;
 
+export async function getServerSideProps() {
+  return {
+    props: {
+      user: {
+        name: "Max",
+        age: 24,
+      },
+    },
+  };
+}

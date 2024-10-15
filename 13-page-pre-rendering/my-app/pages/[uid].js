@@ -1,9 +1,19 @@
 import React from 'react'
 
-function UserPage() {
+function UserPage(props) {
   return (
-    <div>userID:</div>
+    <h1>{props.userId}</h1>
   )
 }
 
-export default UserPage
+export default UserPage;
+
+export async function getServerSideProps(context) {
+  const userId = context.params.uid;
+  return {
+    props: {
+      userId: 'user ID: ' + userId
+    }
+  }
+
+}
