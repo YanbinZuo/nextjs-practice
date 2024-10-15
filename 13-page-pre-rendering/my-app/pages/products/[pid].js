@@ -5,6 +5,11 @@ import fs from "fs/promises";
 function ProductDetailPage(props) {
   const { product } = props;
 
+  // if in getStaticPaths, the return value of fallback: true, then the 
+  // pages that not pre-generated for the value of getStaticProps params 
+  // need take some time, which means the product will take time to get,
+  // then if not have this !product return condition, the product.title
+  // will get error
   if(!product) {
     return <h1>Loading...</h1>
   }
