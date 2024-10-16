@@ -1,6 +1,7 @@
 import EventContent from "@/components/eventDetails/EventContent";
 import EventLogistics from "@/components/eventDetails/EventLogistics";
 import EventSummary from "@/components/eventDetails/EventSummary";
+import MetaData from "@/components/metaData/MetaData";
 import ErrorAlert from "@/components/ui/ErrorAlert";
 import { getEventById, getFeaturedEvents } from "@/helpers/api-utils";
 import { notFound } from "next/navigation";
@@ -19,6 +20,7 @@ function EventDetailsPage(props) {
 
   return (
     <>
+      <MetaData title={event.title} content={event.description} />
       <EventSummary title={event.title} />
       <EventLogistics event={event} />
       <EventContent>
@@ -43,7 +45,7 @@ export async function getStaticProps(context) {
       selectedEvent: event,
     },
     revalidate: 30,
-    notFound: !event
+    notFound: !event,
   };
 }
 

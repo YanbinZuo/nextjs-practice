@@ -1,5 +1,6 @@
 import EventsList from "@/components/events/EventsList";
 import { ResultsTitle } from "@/components/events/ResultsTitle";
+import MetaData from "@/components/metaData/MetaData";
 import Button from "@/components/ui/Button";
 import ErrorAlert from "@/components/ui/ErrorAlert";
 import { getFilteredEvents } from "@/helpers/api-utils";
@@ -17,9 +18,24 @@ function SlugPage(props) {
   const year = props.year;
   const month = props.month;
 
+  const pageHeadData = (
+    <MetaData
+      title="Filtered Events"
+      content={`All events for ${month}/${year}.`}
+    />
+  );
+
   if (props.hasError) {
     return (
       <>
+        <MetaData
+      title="Filtered Events"
+      content={`All events for ${month}/${year}.`}
+    />
+        <MetaData
+          title="Filtered Events"
+          content={`All events for ${month}/${year}.`}
+        />
         <ErrorAlert>
           <p>Invalid filter. Please adjust your values!</p>
         </ErrorAlert>
@@ -35,6 +51,7 @@ function SlugPage(props) {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <>
+        {pageHeadData}
         <ErrorAlert>
           <p>No events found for the chosen filter!</p>
         </ErrorAlert>
@@ -48,6 +65,7 @@ function SlugPage(props) {
   const date = new Date(year, month - 1);
   return (
     <>
+      {pageHeadData}
       <ResultsTitle date={date} />
       <EventsList items={filteredEvents} />
     </>
