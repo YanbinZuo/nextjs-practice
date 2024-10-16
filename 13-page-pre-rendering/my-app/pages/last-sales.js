@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-function LastSalesPage() {
-  const [sales, setSales] = useState();
+function LastSalesPage(props) {
+  const [sales, setSales] = useState(props.fetchedSales);
   const [isLoading, setIsLoading] = useState(false);
 
   console.log(">>> sales: ", sales);
@@ -29,8 +29,8 @@ function LastSalesPage() {
     return <h1>Loading...</h1>;
   }
 
-  if(!sales) {
-    return<p>No data yet</p>
+  if (!sales) {
+    return <p>No data yet</p>;
   }
 
   return (
@@ -46,3 +46,23 @@ function LastSalesPage() {
 }
 
 export default LastSalesPage;
+
+export async function getStaticProps() {
+  const response = await fetch(
+    "https://nextjs-project-c1b4b-default-rtdb.firebaseio.com/sales.json"
+  );
+  const data = await response.json();
+  const fetchedSales = [];
+  for (const key in data) {
+    fetchedSales.push({
+      id: key,
+      username: data[key].username,
+      volume: data[key].volume,
+    });
+  }
+  return {
+    props: {
+      fetchedSales: fetchedSales
+    }
+  }
+}
