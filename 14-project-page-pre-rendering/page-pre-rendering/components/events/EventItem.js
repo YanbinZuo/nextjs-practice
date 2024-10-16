@@ -4,6 +4,7 @@ import AddressIcon from "../icons/address-icon";
 import DateIcon from "../icons/date-icon";
 import Button from "../ui/Button";
 import ArrowRightIcon from "../icons/arrow-right-icon";
+import Image from "next/image";
 
 const EventItem = (props) => {
   const { event } = props;
@@ -17,7 +18,7 @@ const EventItem = (props) => {
   const exploreLink = `/events/${event.id}`;
   return (
     <li className={classes.item}>
-      <img src={"/" + event.image} alt={event.title} />
+      <Image src={"/" + event.image} alt={event.title} width={500} height={320}/>
       <div className={classes.content}>
         <div className={classes.summary}>
           <h2>{event.title}</h2>
