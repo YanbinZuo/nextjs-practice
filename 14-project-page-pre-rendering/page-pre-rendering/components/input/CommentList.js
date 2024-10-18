@@ -1,21 +1,17 @@
 import React from "react";
 import classes from "./styles/CommentList.module.css";
 
-function CommentList() {
+function CommentList(props) {
   return (
     <ul className={classes.comments}>
-      <li>
-        <p>My comment is amazing!</p>
-        <div>
-          By <address>Maximilian</address>
-        </div>
-      </li>
-      <li>
-        <p>My comment is amazing!</p>
-        <div>
-          By <address>Maximilian</address>
-        </div>
-      </li>
+      {props.items.map((comment) => (
+        <li key={comment.id}>
+          <p>{comment.text}</p>
+          <div>
+            By <address>{comment.name}</address>
+          </div>
+        </li>
+      ))}
     </ul>
   );
 }
