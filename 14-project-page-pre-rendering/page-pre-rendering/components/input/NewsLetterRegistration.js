@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useRef } from "react";
 import classes from "./styles/NewsLetterRegistration.module.css";
 
 function NewsLetterRegistration() {
+  const emailInputRef = useRef();
+
   const registrationHandler = (event) => {
     event.preventDefault();
+    const enteredEmail = emailInputRef.current.value;
+    fetch("/api/newsletter", {
+      method: "POST",
+      body: JSON.stringify({ email: enteredEmail }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
   };
   return (
     <section className={classes.newsletter}>
@@ -15,6 +27,7 @@ function NewsLetterRegistration() {
             id="email"
             placeholder="Your email"
             aria-label="Your email"
+            ref={emailInputRef}
           />
           <button>Register</button>
         </div>
