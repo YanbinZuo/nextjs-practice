@@ -8,13 +8,16 @@ function Comments(props) {
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
 
-  console.log("Show comments: ", showComments);
-
   useEffect(() => {
     if (showComments) {
       fetch("/api/comments/" + eventId)
         .then((response) => response.json())
-        .then((data) => setComments(data.comments));
+        .then((data) => {
+          console.log(data)
+          if(data.comments) {
+            setComments(data.comments)
+          }
+        });
     }
   }, [showComments]);
 
