@@ -7,14 +7,10 @@ import MealsLoading from "@/components/loading/LoadingOut";
 
 async function Meals() {
   const meals = await getMeals();
-  return (
-    <main>
-      <MealsGrid meals={meals || []} />
-    </main>
-  );
+  return <MealsGrid meals={meals || []} />;
 }
 
-async function MealsPage() {
+function MealsPage() {
   return (
     <>
       <header className={classes.header}>
