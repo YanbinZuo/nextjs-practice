@@ -5,6 +5,11 @@ import Link from "next/link";
 import MealsGrid from "@/components/meals/MealsGrid";
 import MealsLoading from "@/components/loading/LoadingOut";
 
+export const metadata = {
+  title: "All meals",
+  description: "Browse the delicious meals shared by us",
+};
+
 async function Meals() {
   const meals = await getMeals();
   return <MealsGrid meals={meals || []} />;
