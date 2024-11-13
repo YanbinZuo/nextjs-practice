@@ -1,10 +1,13 @@
-import React from "react";
+'use client'
+import { useFormState } from "react-dom";
 import classes from "./page.module.css";
 import ImagePicker from "@/components/meals/ImagePicker";
 import { shareMeal } from "@/lib/actions";
 import MealsFormSubmit from "@/components/meals/MealsFormSubmit";
 
 function SharePage() {
+  const [state, formAction] = useFormState(shareMeal, { message: null });
+
   return (
     <>
       <header className={classes.header}>
@@ -15,7 +18,7 @@ function SharePage() {
       </header>
 
       <main className={classes.main}>
-        <form className={classes.form} action={shareMeal}>
+        <form className={classes.form} action={formAction}>
           <div className={classes.row}>
             <p>
               <label htmlFor="name">Your name</label>
@@ -44,6 +47,7 @@ function SharePage() {
             ></textarea>
           </p>
           <ImagePicker label="Your image" name="image" />
+          {state.message && <p>{state.message}</p>}
           <p className={classes.actions}>
             <MealsFormSubmit />
           </p>
