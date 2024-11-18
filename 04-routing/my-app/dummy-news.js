@@ -29,7 +29,7 @@ export const DUMMY_NEWS = [
     slug: 'hiking',
     title: 'Hiking is the best!',
     image: 'hiking.jpg',
-    date: '2024-01-01',
+    date: '2024-01-03',
     content: 'Hiking is a great way to get some exercise and enjoy the great outdoors. It is also a great way to clear your mind and reduce stress. So what are you waiting for? Get out there and start hiking!',
   },
   {
