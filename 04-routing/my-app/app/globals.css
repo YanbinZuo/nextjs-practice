@@ -75,8 +75,6 @@ ul {
   text-align: center;
 }
 
-/* 
-
 #home img {
   width: 8rem;
   border-radius: 50%;
@@ -108,8 +106,6 @@ ul {
 #home a:hover {
   background-color: #e5e5e1;
 }
-
-*/
 
 .news-list {
   display: grid;
