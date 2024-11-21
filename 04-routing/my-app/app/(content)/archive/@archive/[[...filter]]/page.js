@@ -1,45 +1,46 @@
-import NewsList from "@/components/NewsList";
+import Link from 'next/link';
+
 import {
   getAvailableNewsMonths,
   getAvailableNewsYears,
   getNewsForYear,
   getNewsForYearAndMonth,
-} from "@/lib/news";
-import Link from "next/link";
-import React from "react";
+} from '@/lib/news';
+import NewsList from '@/components/NewsList';
 
-function page({ params }) {
+export default async function FilteredNewsPage({ params }) {
   const filter = params.filter;
-  console.log("filter: ", filter);
 
   const selectedYear = filter?.[0];
   const selectedMonth = filter?.[1];
 
-  let newsContent = <p>No news found for the selected period.</p>;
-  let yearsMonths = getAvailableNewsYears();
   let news;
+  let links = await getAvailableNewsYears();
 
   if (selectedYear && !selectedMonth) {
-    news = getNewsForYear(selectedYear);
-    yearsMonths = getAvailableNewsMonths(selectedYear);
+    news = await getNewsForYear(selectedYear);
+    links = getAvailableNewsMonths(selectedYear);
   }
 
   if (selectedYear && selectedMonth) {
-    news = getNewsForYearAndMonth(selectedYear, selectedMonth);
-    yearsMonths = [];
+    news = await getNewsForYearAndMonth(selectedYear, selectedMonth);
+    links = [];
   }
+
+  let newsContent = <p>No news found for the selected period.</p>;
 
   if (news && news.length > 0) {
     newsContent = <NewsList news={news} />;
   }
 
+  const availableYears = await getAvailableNewsYears();
+
   if (
-    (selectedYear && !getAvailableNewsYears().includes(+selectedYear)) ||
+    (selectedYear && !availableYears.includes(selectedYear)) ||
     (selectedMonth &&
-      !getAvailableNewsMonths(selectedYear).includes(+selectedMonth)) ||
-    (filter && filter.length > 2)
+      !getAvailableNewsMonths(selectedYear).includes(selectedMonth))
   ) {
-    throw new Error("Invalid filter.");
+    throw new Error('Invalid filter.');
   }
 
   return (
@@ -47,14 +48,14 @@ function page({ params }) {
       <header id="archive-header">
         <nav>
           <ul>
-            {yearsMonths.map((ym) => {
+            {links.map((link) => {
               const href = selectedYear
-                ? `/archive/${selectedYear}/${ym}`
-                : `/archive/${ym}`;
+                ? `/archive/${selectedYear}/${link}`
+                : `/archive/${link}`;
 
               return (
-                <li key={ym}>
-                  <Link href={href}>{ym}</Link>
+                <li key={link}>
+                  <Link href={href}>{link}</Link>
                 </li>
               );
             })}
@@ -65,5 +66,3 @@ function page({ params }) {
     </>
   );
 }
-
-export default page;

@@ -1,10 +1,11 @@
-import { DUMMY_NEWS } from '@/dummy-news';
+import { getNewsItem } from '@/lib/news';
 import { notFound } from 'next/navigation';
 import React from 'react'
 
-function FullScreenImagePage({params}) {
+async function FullScreenImagePage({params}) {
   const newsSlug = params.slug;
-  const newsItem = DUMMY_NEWS.find(news => news.slug === newsSlug);
+  // const newsItem = DUMMY_NEWS.find(news => news.slug === newsSlug);
+  const newsItem = await getNewsItem(newsSlug);
 
   console.log("newsSlug: ", newsSlug)
   console.log("newsItem: ", newsItem)
