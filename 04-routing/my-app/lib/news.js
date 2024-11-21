@@ -1,9 +1,11 @@
+import { DUMMY_NEWS } from '@/dummy-news';
 import sql from 'better-sqlite3';
 
 const db = sql("data.db");
 
-export function getAllNews() {
+export async function getAllNews() {
   const news = db.prepare("SELECT * FROM news").all();
+  await new Promise(resolve => setTimeout(resolve, 1000));
   return news;
 }
 
