@@ -192,3 +192,14 @@ main {
 .liked .like-button:hover svg {
   fill: transparent;
 }
+
+.form-errors {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.form-errors li {
+  margin: 0.35rem 0;
+  color: #c882a2;
+}
