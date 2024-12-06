@@ -1,15 +1,22 @@
-import crypto from "node:crypto";
+import crypto from 'node:crypto';
 
 export function hashUserPassword(password) {
-  const salt = crypto.randomBytes(16).toString("hex");
+  const salt = crypto.randomBytes(16).toString('hex');
 
   const hashedPassword = crypto.scryptSync(password, salt, 64);
-  return hashUserPassword.toString("hex") + ":" + salt;
+  return hashedPassword.toString('hex') + ':' + salt;
 }
 
 export function verifyPassword(storedPassword, suppliedPassword) {
-  const [hashedPassword, salt] = storedPassword.split(":");
-  const hashedPasswordBuf = Buffer.from(hashedPassword, "hex");
+  const [hashedPassword, salt] = storedPassword.split(':');
+  const hashedPasswordBuf = Buffer.from(hashedPassword, 'hex');
   const suppliedPasswordBuf = crypto.scryptSync(suppliedPassword, salt, 64);
-  return crypto.timingSafeEqual(hashedPasswordBuf, suppliedPasswordBuf);
+  // return crypto.timingSafeEqual(hashedPasswordBuf, suppliedPasswordBuf);
+  if (hashedPasswordBuf.length !== suppliedPasswordBuf.length) {
+    return false;
+} else {
+    return crypto.timingSafeEqual(hashedPasswordBuf, suppliedPasswordBuf);
 }
+
+}
+
